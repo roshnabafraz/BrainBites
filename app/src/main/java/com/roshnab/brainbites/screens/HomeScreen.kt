@@ -16,6 +16,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -51,24 +53,24 @@ fun HomeScreen(navController: NavHostController)
     ){
         innerPadding ->
 
-        Column(modifier = Modifier.padding(innerPadding),
-            horizontalAlignment = Alignment.CenterHorizontally){
+        val categories = listOf(
+            "Psychology" to R.drawable.psychology,
+            "Tech" to R.drawable.tech,
+            "Science" to R.drawable.science,
+            "History" to R.drawable.history,
+            "Nature" to R.drawable.nature,
+            "Random" to R.drawable.nature
+        )
 
-            CategoryCard("Psychology", R.drawable.psychology, onClick = {
-                navController.navigate("facts/Psychological")
-            })
-            CategoryCard("Tech", R.drawable.tech, onClick = {
-                navController.navigate("facts/Tech")
-            })
-            CategoryCard("Science", R.drawable.science, onClick = {
-                navController.navigate("facts/Science")
-            })
-            CategoryCard("History", R.drawable.history, onClick = {
-                navController.navigate("facts/History")
-            })
-            CategoryCard("Nature", R.drawable.nature, onClick = {
-                navController.navigate("facts/Nature")
-            })
+        LazyColumn(
+            modifier = Modifier.padding(innerPadding),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            items(categories) { (name, icon) ->
+                CategoryCard(name, icon) {
+                    navController.navigate("facts/$name")
+                }
+            }
         }
     }
 }

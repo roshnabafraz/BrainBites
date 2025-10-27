@@ -61,7 +61,7 @@ fun FactScreen(navController: NavHostController, viewModel: BrainBiteViewModel, 
     ) {
         innerPadding ->
 
-        val bites: State<List<Bite>?> = when (category) {
+        val bites: State<List<Bite>> = when (category) {
             "Tech" -> viewModel.TechBites.observeAsState(emptyList())
             "Psychological" -> viewModel.PsychologicalBites.observeAsState(emptyList())
             "Science" -> viewModel.ScienceBites.observeAsState(emptyList())
@@ -69,6 +69,11 @@ fun FactScreen(navController: NavHostController, viewModel: BrainBiteViewModel, 
             "Nature" -> viewModel.NatureBites.observeAsState(emptyList())
             else -> viewModel.allBites.observeAsState(emptyList())
         }
+
+        val BiteList = bites.value
+        val ListSize = BiteList.size
+
+        var factIndex by remember { mutableStateOf(0) }
 
 //        val bites = viewModel.allBites.observeAsState(emptyList())
 //        val techBites = viewModel.TechBites.observeAsState(emptyList())
@@ -90,10 +95,8 @@ fun FactScreen(navController: NavHostController, viewModel: BrainBiteViewModel, 
 
                 //Bite("Roshnab is Android Dev. The average person has over 6,000 thoughts per day.")
 
-                var factIndex by remember { mutableStateOf(0) }
 
-
-                bites.value?.let { biteList ->
+                bites.value.let { biteList ->
                     if (biteList.size > factIndex) {
                         val fact = biteList[factIndex]
                         Bite(fact.text)
@@ -105,10 +108,11 @@ fun FactScreen(navController: NavHostController, viewModel: BrainBiteViewModel, 
 
                 Button(
                     onClick = {
-                        bites.value?.let { biteList ->
-                            if (biteList.isNotEmpty()) {
-                                factIndex = (factIndex + 1) % biteList.size
-                            }    }
+                        factIndex = if( category == "Random"){
+                            (0 until ListSize).random()
+                        }else{
+                            (factIndex + 1) % ListSize
+                        }
                     },
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Color(0xFF405a0d),
