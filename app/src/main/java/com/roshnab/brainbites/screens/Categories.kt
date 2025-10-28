@@ -33,7 +33,7 @@ import androidx.compose.ui.text.TextStyle
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(navController: NavHostController)
+fun Categories(navController: NavHostController)
 {
     Scaffold(
         topBar = {
@@ -55,8 +55,7 @@ fun HomeScreen(navController: NavHostController)
             "Tech" to R.drawable.tech,
             "Science" to R.drawable.science,
             "History" to R.drawable.history,
-            "Nature" to R.drawable.nature,
-            "Random" to R.drawable.nature
+            "Nature" to R.drawable.nature
         )
 
         LazyColumn(

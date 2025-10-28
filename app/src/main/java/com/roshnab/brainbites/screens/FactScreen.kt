@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -44,22 +45,10 @@ import com.roshnab.brainbites.ui.theme.Rubik
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun FactScreen(navController: NavHostController, viewModel: BrainBiteViewModel, category: String = "All") {
-    Scaffold(
-        topBar = {
-            CenterAlignedTopAppBar(title = {
-                Text(text = category,
-                    fontSize = 32.sp,
-                    style = TextStyle(
-                        fontFamily = Rubik,
-                        fontWeight = FontWeight.Bold,
-                        color = Color(0xFF203201)
-                    )
-                )
-            })
-        }
-    ) {
-        innerPadding ->
+fun FactScreen(navController: NavHostController,
+               viewModel: BrainBiteViewModel,
+               category: String = "All",
+               innerPadding: PaddingValues = PaddingValues(0.dp)) {
 
         val bites: State<List<Bite>> = when (category) {
             "Tech" -> viewModel.TechBites.observeAsState(emptyList())
@@ -75,13 +64,6 @@ fun FactScreen(navController: NavHostController, viewModel: BrainBiteViewModel, 
 
         var factIndex by remember { mutableStateOf(0) }
 
-//        val bites = viewModel.allBites.observeAsState(emptyList())
-//        val techBites = viewModel.TechBites.observeAsState(emptyList())
-//        val psychologicalBites = viewModel.PsychologicalBites.observeAsState(emptyList())
-//        val scienceBites = viewModel.ScienceBites.observeAsState(emptyList())
-//        val historyBites = viewModel.HistoryBites.observeAsState(emptyList())
-//        val natureBites = viewModel.NatureBites.observeAsState(emptyList())
-
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -92,9 +74,6 @@ fun FactScreen(navController: NavHostController, viewModel: BrainBiteViewModel, 
                 verticalArrangement = Arrangement.Center,
                 modifier = Modifier.padding(innerPadding)
                     .fillMaxSize()) {
-
-                //Bite("Roshnab is Android Dev. The average person has over 6,000 thoughts per day.")
-
 
                 bites.value.let { biteList ->
                     if (biteList.size > factIndex) {
@@ -130,7 +109,6 @@ fun FactScreen(navController: NavHostController, viewModel: BrainBiteViewModel, 
 
             }
         }
-    }
 }
 
 @Composable
