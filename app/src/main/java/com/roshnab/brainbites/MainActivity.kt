@@ -13,6 +13,7 @@ import com.roshnab.brainbites.screens.Categories
 import com.roshnab.brainbites.screens.ComingSoon
 import com.roshnab.brainbites.screens.FactScreen
 import com.roshnab.brainbites.screens.Home
+import com.roshnab.brainbites.screens.Sample
 import com.roshnab.brainbites.ui.theme.BrainBitesTheme
 
 class MainActivity : ComponentActivity() {
@@ -21,37 +22,36 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             BrainBitesTheme {
-                Navigation()
+                Sample()
             }
         }
     }
 }
 
-@Composable
-fun Navigation(){
-    val navController = rememberNavController()
-
-    NavHost(
-        navController = navController,
-        startDestination = "home"
-    ){
-        composable("home"){
-            Home(navController = navController, viewModel = viewModel())
-        }
-
-        composable("categories") {
-            Categories(navController = navController)
-        }
-
-        composable("comingsoon") { ComingSoon() }
-
-        composable("facts/{category}") { backStackEntry ->
-            val category = backStackEntry.arguments?.getString("category") ?: "Tech"
-            FactScreen(
-                navController = navController,
-                viewModel = viewModel(),
-                category = category
-            )
-        }
-    }
-}
+//@Composable
+//fun Navigation(){
+//    val navController = rememberNavController()
+//
+//    NavHost(
+//        navController = navController,
+//        startDestination = "home"
+//    ){
+//        composable("home"){
+//            Home(navController = navController, viewModel = viewModel())
+//        }
+//
+//        composable("categories") {
+//            Categories(navController = navController)
+//        }
+//
+//        composable("comingsoon") { ComingSoon() }
+//
+//        composable("facts/{category}") { backStackEntry ->
+//            val category = backStackEntry.arguments?.getString("category") ?: "Tech"
+//            FactScreen(
+//                navController = navController,
+//                category = category
+//            )
+//        }
+//    }
+//}

@@ -38,7 +38,7 @@ fun Categories(navController: NavHostController)
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(title = {
-                Text(text = "BrainBites",
+                Text(text = "Categories",
                     fontSize = 28.sp,
                     style = TextStyle(
                         fontFamily = Rubik,
