@@ -10,7 +10,9 @@ import androidx.lifecycle.asLiveData
 import kotlinx.coroutines.flow.Flow
 
 class BrainBiteViewModel(private val repository: BitesRepository) : ViewModel() {
+
     val bites = repository.biteDao.getAllBites()
+    //val savedBites = repository.getSavedBites()
 
     init {
         viewModelScope.launch {
@@ -29,4 +31,7 @@ class BrainBiteViewModel(private val repository: BitesRepository) : ViewModel() 
         return repository.getBitesByCategory(category)
     }
 
+    fun getSavedBites() : Flow<List<Bite>> {
+        return repository.getSavedBites()
+    }
 }

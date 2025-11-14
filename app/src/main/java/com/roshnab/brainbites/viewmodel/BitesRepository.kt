@@ -36,4 +36,8 @@ class BitesRepository(val biteDao: Bite_DAO, val api: apiservice) {
         }
     }
 
+    fun getSavedBites(): Flow<List<Bite>> {
+        return biteDao.getSavedBites()
+    }
+
 }

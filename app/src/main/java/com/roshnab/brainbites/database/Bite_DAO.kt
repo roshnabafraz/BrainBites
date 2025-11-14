@@ -16,9 +16,12 @@ interface Bite_DAO {
     @Query("SELECT * FROM Bite WHERE Bite.category = :category")
     fun getBitesByCategory(category : String): Flow<List<Bite>>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertAll(bites: List<Bite>)
 
     @Query("UPDATE Bite SET isSaved = :isSaved WHERE Bite.id = :id")
     suspend fun saveBite(id: Int, isSaved: Boolean)
+
+    @Query("SELECT * FROM Bite WHERE Bite.isSaved = 1")
+    fun getSavedBites(): Flow<List<Bite>>
 }
