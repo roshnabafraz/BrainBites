@@ -11,9 +11,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.roshnab.brainbites.screens.Categories
 import com.roshnab.brainbites.screens.ComingSoon
+import com.roshnab.brainbites.screens.DemoScreen
 import com.roshnab.brainbites.screens.FactScreen
 import com.roshnab.brainbites.screens.Home
-import com.roshnab.brainbites.screens.Sample
 import com.roshnab.brainbites.ui.theme.BrainBitesTheme
 
 class MainActivity : ComponentActivity() {
@@ -22,7 +22,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             BrainBitesTheme {
-                Sample()
+                DemoScreen()
             }
         }
     }

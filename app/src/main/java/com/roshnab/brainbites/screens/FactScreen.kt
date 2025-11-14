@@ -47,19 +47,129 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.roshnab.brainbites.ui.theme.Rubik // Assuming you have this theme package
 import com.roshnab.brainbites.viewmodel.BrainBiteViewModelFactory
+import kotlin.random.Random
 
+//@Composable
+//fun Sample(){
+//    val context = LocalContext.current
+//    val viewModel: BrainBiteViewModel = viewModel(
+//        factory = BrainBiteViewModelFactory(context)
+//    )
+//
+//    val bites by viewModel.bites.collectAsState(initial = emptyList())
+//
+//    LazyColumn {
+//        items(bites.size) { index ->
+//            Bite(text = bites[index].text)
+//        }
+//    }
+//}
+
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Sample(){
+fun DemoScreen(
+    category: String = "All",
+    innerPadding: PaddingValues = PaddingValues(0.dp)
+) {
     val context = LocalContext.current
     val viewModel: BrainBiteViewModel = viewModel(
         factory = BrainBiteViewModelFactory(context)
     )
 
-    val bites by viewModel.bites.collectAsState(initial = emptyList())
 
-    LazyColumn {
-        items(bites.size) { index ->
-            Bite(text = bites[index].text)
+    val flow = when (category) {
+        "Tech" -> { viewModel.getBitesByCategory("Tech") }
+        "Psychology" -> { viewModel.getBitesByCategory("Psychology") }
+        "History" -> { viewModel.getBitesByCategory("History") }
+        "Science" -> { viewModel.getBitesByCategory("Science") }
+        "Nature" -> { viewModel.getBitesByCategory("Nature") }
+        else -> { viewModel.getBitesByCategory("All") }
+    }
+
+    val bites = flow.collectAsState(initial = emptyList())
+
+
+
+    var factIndex by remember { mutableStateOf(0) }
+    val size = bites.value.size
+
+    LaunchedEffect(bites.value.size) {
+        factIndex = 0
+    }
+
+
+
+    if (bites.value.isEmpty()) {
+        Text("loading...")
+        return
+    }
+
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.White)
+    ) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center,
+            modifier = Modifier
+                .padding(innerPadding)
+                .fillMaxSize()
+        ) {
+
+            Bite(text = bites.value[factIndex].text)
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Row(
+                modifier = Modifier
+                    .padding(horizontal = 16.dp)
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Button(
+                    onClick = {
+                        factIndex = Random.nextInt(0, bites.value.size)
+                    },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color(0xFF405a0d),
+                        contentColor = Color(0xFFfbffe5)
+                    ),
+                    shape = RoundedCornerShape(22.dp),
+                    modifier = Modifier
+                        .height(70.dp)
+                        .weight(1f)
+                ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.arrow_right),
+                        contentDescription = null,
+                        modifier = Modifier.size(40.dp)
+                    )
+                }
+
+                Spacer(modifier = Modifier.width(8.dp))
+
+                Button(
+                    onClick = {
+                        val bite = bites.value[factIndex]
+                        viewModel.saveBite(bite.id, !bite.isSaved)
+                    },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color(0xFF405a0d),
+                        contentColor = Color(0xFFfbffe5)
+                    ),
+                    shape = RoundedCornerShape(22.dp),
+                    modifier = Modifier
+                        .height(70.dp)
+                        .width(70.dp)
+                ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.heart),
+                        contentDescription = null,
+                        modifier = Modifier.size(32.dp)
+                    )
+                }
+            }
         }
     }
 }
@@ -76,7 +186,33 @@ fun FactScreen(
         factory = BrainBiteViewModelFactory(context)
     )
 
-    val bites by viewModel.bites.collectAsState(initial = emptyList())
+
+    val flow = when (category) {
+        "Tech" -> { viewModel.getBitesByCategory("Tech") }
+        "Psychology" -> { viewModel.getBitesByCategory("Psychology") }
+        "History" -> { viewModel.getBitesByCategory("History") }
+        "Science" -> { viewModel.getBitesByCategory("Science") }
+        "Nature" -> { viewModel.getBitesByCategory("Nature") }
+        else -> { viewModel.getBitesByCategory("All") }
+    }
+
+    val bites = flow.collectAsState(initial = emptyList())
+
+
+
+    var factIndex by remember { mutableStateOf(0) }
+    val size = bites.value.size
+
+    LaunchedEffect(bites.value.size) {
+        factIndex = 0
+    }
+
+
+
+    if (bites.value.isEmpty()) {
+        Text("loading...")
+        return
+    }
 
     Box(
         modifier = Modifier
@@ -91,6 +227,8 @@ fun FactScreen(
                 .fillMaxSize()
         ) {
 
+            Bite(text = bites.value[factIndex].text)
+
             Spacer(modifier = Modifier.height(16.dp))
 
             Row(
@@ -101,6 +239,7 @@ fun FactScreen(
             ) {
                 Button(
                     onClick = {
+                        factIndex = Random.nextInt(0, bites.value.size)
                     },
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Color(0xFF405a0d),

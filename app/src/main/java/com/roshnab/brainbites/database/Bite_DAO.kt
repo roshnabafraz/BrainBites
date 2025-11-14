@@ -13,15 +13,12 @@ interface Bite_DAO {
     @Query("SELECT * FROM Bite")
     fun getAllBites(): Flow<List<Bite>>
 
-    @Query("SELECT * FROM Bite WHERE Bite.isSaved = TRUE")
-    fun SavedBites(): Flow<List<Bite>>
-
     @Query("SELECT * FROM Bite WHERE Bite.category = :category")
-    fun CategoryBites(category: String): Flow<List<Bite>>
+    fun getBitesByCategory(category : String): Flow<List<Bite>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(bites: List<Bite>)
 
-    @Query("SELECT * FROM Bite WHERE Bite.id = :id")
-    fun showBite(id: Int): Flow<Bite>
+    @Query("UPDATE Bite SET isSaved = :isSaved WHERE Bite.id = :id")
+    suspend fun saveBite(id: Int, isSaved: Boolean)
 }
