@@ -4,17 +4,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.runtime.Composable
-import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
-import com.roshnab.brainbites.screens.Categories
-import com.roshnab.brainbites.screens.ComingSoon
-import com.roshnab.brainbites.screens.DemoScreen
-import com.roshnab.brainbites.screens.FactScreen
-import com.roshnab.brainbites.screens.Home
-import com.roshnab.brainbites.screens.SavedFacts
+import com.roshnab.brainbites.navigation.AppNavigation
+import com.roshnab.brainbites.screens.SavedFactsScreen
 import com.roshnab.brainbites.ui.theme.BrainBitesTheme
 
 class MainActivity : ComponentActivity() {
@@ -24,7 +15,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             BrainBitesTheme {
                 //DemoScreen()
-                SavedFacts()
+                AppNavigation()
             }
         }
     }

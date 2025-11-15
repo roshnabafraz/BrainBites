@@ -19,7 +19,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -28,7 +27,7 @@ import com.roshnab.brainbites.viewmodel.BrainBiteViewModel
 import com.roshnab.brainbites.viewmodel.BrainBiteViewModelFactory
 
 @Composable
-fun SavedFacts() {
+fun SavedFactsScreen() {
     val context = LocalContext.current
     val viewModel: BrainBiteViewModel = viewModel(
         factory = BrainBiteViewModelFactory(context)
@@ -50,7 +49,7 @@ fun SavedBite(text : String){
         contentAlignment = Alignment.Center,
         modifier = Modifier
             .fillMaxWidth()
-            .height(120.dp)
+            .height(150.dp)
             .padding(horizontal = 16.dp, vertical = 8.dp)
             .clip(RoundedCornerShape(24.dp))
             .background(Color(0xFFe9ff93))

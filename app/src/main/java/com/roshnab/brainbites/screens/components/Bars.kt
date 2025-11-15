@@ -1,4 +1,4 @@
-package com.roshnab.brainbites.screens
+package com.roshnab.brainbites.screens.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -61,7 +61,7 @@ fun CustomBottomBar(navController: NavController, isPressed: String)
 
             IconButton(modifier = Modifier.weight(1f),
                 onClick = {
-                    navController.navigate("comingsoon")
+                    navController.navigate("saved")
                     isPressed.value = "heart" }) {
                 Icon(
                     painter = if(isPressed.value == "heart") painterResource(id= R.drawable.heart_bold)

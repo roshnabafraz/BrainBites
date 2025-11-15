@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -26,10 +27,14 @@ import androidx.compose.ui.unit.sp
 import com.roshnab.brainbites.R
 import com.roshnab.brainbites.ui.theme.Rubik
 
-@Preview(showSystemUi = true)
 @Composable
-fun SplashScreen()
+fun SplashScreen(onTimeout: () -> Unit)
 {
+    LaunchedEffect(Unit) {
+        kotlinx.coroutines.delay(2000)   // 2 sec splash delay
+        onTimeout()
+    }
+
     Box(modifier = Modifier.fillMaxSize().background(color = Color(0xFFffb703)),
         contentAlignment = Alignment.Center
         ){

@@ -29,26 +29,14 @@ import androidx.navigation.NavHostController
 import com.roshnab.brainbites.R
 import com.roshnab.brainbites.ui.theme.Rubik
 import androidx.compose.ui.text.TextStyle
+import androidx.navigation.compose.rememberNavController
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Categories(navController: NavHostController)
+fun CategoryScreen()
 {
-    Scaffold(
-        topBar = {
-            CenterAlignedTopAppBar(title = {
-                Text(text = "Categories",
-                    fontSize = 28.sp,
-                    style = TextStyle(
-                        fontFamily = Rubik,
-                        fontWeight = FontWeight.Bold,
-                        color = Color.Black
-                    ))
-            })
-        }
-    ){
-        innerPadding ->
+    val navController = rememberNavController()
 
         val categories = listOf(
             "Psychology" to R.drawable.psychology,
@@ -59,7 +47,7 @@ fun Categories(navController: NavHostController)
         )
 
         LazyColumn(
-            modifier = Modifier.padding(innerPadding),
+           // modifier = Modifier.padding(innerPadding),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             items(categories) { (name, icon) ->
@@ -68,7 +56,6 @@ fun Categories(navController: NavHostController)
                 }
             }
         }
-    }
 }
 
 @Composable
