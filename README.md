@@ -16,7 +16,7 @@ BrainBite is a lightweight Android app built entirely with **Jetpack Compose**. 
 - **MVVM**
 - **StateFlow**
 - **Retrofit-ready architecture**
-- **Local JSON data**
+- **JSON data**
 - **Material 3**
 
 ## 📸 Screenshots Layout
